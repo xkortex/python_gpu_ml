@@ -26,11 +26,11 @@ services:
     environment:
     - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
     command: ["bash"]
-  stress_gpu:
-    container_name: stress_gpu
+  tf_stress_gpu:
+    container_name: tf_stress_gpu
     build:
       context: .
-      dockerfile: docker/stress_gpu.docker
+      dockerfile: docker/tf_stress_gpu.docker
     image: stress_gpu:latest
     tty: true
     stdin_open: true
@@ -38,6 +38,18 @@ services:
     environment:
     - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
     command: ["python3", "python_gpu_tools/python_gpu_tools/mnist.py"]
+  pytorch_stress_gpu:
+    container_name: pytorch_stress_gpu
+    build:
+      context: .
+      dockerfile: docker/pytorch_stress_gpu.docker
+    image: stress_gpu:latest
+    tty: true
+    stdin_open: true
+    runtime: nvidia
+    environment:
+    - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
+    command: ["bash"]
   data_pygpu_testsets:
     build:
       context: .
