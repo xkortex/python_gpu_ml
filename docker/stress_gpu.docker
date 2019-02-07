@@ -1,0 +1,6 @@
+FROM tf_pygpu:latest as tf_pygpu
+
+COPY --from=data_pygpu_testsets:latest /root/data/ /root/data/
+COPY python_gpu_tools /root/python_gpu_tools
+
+CMD ["python3", "python_gpu_tools/python_gpu_tools/mnist.py"]

@@ -1,0 +1,46 @@
+---
+## docker-compose supports runtime argument for v2 only currently.
+version: '2.3'
+services:
+  pygpu_base:
+    container_name: pygpu_base
+    build:
+      context: .
+      dockerfile: docker/base.docker
+    image: pygpu_base:latest
+    tty: true
+    stdin_open: true
+    runtime: nvidia
+    environment:
+      - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
+    command: ["bash"]
+  tf_pygpu:
+    container_name: tf_pygpu
+    build:
+      context: .
+      dockerfile: docker/tf.docker
+    image: tf_pygpu:latest
+    tty: true
+    stdin_open: true
+    runtime: nvidia
+    environment:
+    - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
+    command: ["bash"]
+  stress_gpu:
+    container_name: stress_gpu
+    build:
+      context: .
+      dockerfile: docker/stress_gpu.docker
+    image: stress_gpu:latest
+    tty: true
+    stdin_open: true
+    runtime: nvidia
+    environment:
+    - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
+    command: ["python3", "python_gpu_tools/python_gpu_tools/mnist.py"]
+  data_pygpu_testsets:
+    build:
+      context: .
+      dockerfile: docker/data_testsets.docker
+    image: data_pygpu_testsets:latest
+...

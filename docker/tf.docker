@@ -1,0 +1,7 @@
+FROM pygpu_base:latest as python-base
+
+RUN pip3 install tensorflow-gpu tqdm
+COPY python_gpu_tools /root/python_gpu_tools
+
+
+CMD ["bash"]

@@ -1,5 +1,4 @@
-ARG BASE_CONTAINER=nvidia/cuda:8.0-devel-ubuntu16.04 
-FROM $BASE_CONTAINER as cuda_base
+FROM pygpu_base:latest as cuda_base
 
 
 WORKDIR /root
