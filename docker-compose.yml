@@ -7,52 +7,52 @@ services:
     build:
       context: .
       dockerfile: docker/base.docker
-    image: pygpu_base:latest
     tty: true
     stdin_open: true
     runtime: nvidia
     environment:
       - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
     command: ["bash"]
+    image: prefrontalvortex/python_gpu_ml:base
   tf_pygpu:
     container_name: tf_pygpu
     build:
       context: .
       dockerfile: docker/tf.docker
-    image: tf_pygpu:latest
     tty: true
     stdin_open: true
     runtime: nvidia
     environment:
     - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
     command: ["bash"]
+    image: prefrontalvortex/python_gpu_ml:tf_pygpu
   tf_stress_gpu:
     container_name: tf_stress_gpu
     build:
       context: .
       dockerfile: docker/tf_stress_gpu.docker
-    image: stress_gpu:latest
     tty: true
     stdin_open: true
     runtime: nvidia
     environment:
     - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
     command: ["python3", "python_gpu_tools/python_gpu_tools/mnist.py"]
+    image: prefrontalvortex/gpu-stress-tf:latest
   pytorch_stress_gpu:
     container_name: pytorch_stress_gpu
     build:
       context: .
       dockerfile: docker/pytorch_stress_gpu.docker
-    image: stress_gpu:latest
     tty: true
     stdin_open: true
     runtime: nvidia
     environment:
     - CUDA_VISIBLE_DEVICES=0 # This is system dependent!
     command: ["bash"]
+    image: prefrontalvortex/gpu-stress-pytorch:latest
   data_pygpu_testsets:
     build:
       context: .
       dockerfile: docker/data_testsets.docker
-    image: data_pygpu_testsets:latest
+    image: prefrontalvortex/data_pygpu_testsets:latest
 ...
