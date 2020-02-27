@@ -1,3 +1,4 @@
+import argparse
 from subprocess import Popen, PIPE
 from tqdm import tqdm
 
@@ -35,6 +36,11 @@ def print_gpu_bars():
     gpus = smi_csv_read()
     bars = [gpu_utilization_bar(gpu) for gpu in gpus]
     print(' '.join(bars))
+
+def menu():
+    description = """"""
+    parser = argparse.ArgumentParser(description=description)
+
 
 
 if __name__ == '__main__':
